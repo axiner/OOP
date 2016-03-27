@@ -9,18 +9,20 @@ class Rover
     def read_instruction(instructions)
       puts "What are your instructions?"
         instructions = gets.split(//)
-            if instructions == "L"
+        instructions.each do |motion|
+            if motion == "L"
               self.turn("left_right")
-            elsif instructions == "R"
+            elsif motion == "R"
                 self.turn("left_right")
                 else
                   self.move
+              end
          end
     end
 
       def turn(left_right)
          if @direction == "N" && left_right == "L"
-           @direction = "S"
+           @direction = "W"
          elsif @direction == "N" && left_right == "R"
            @direction = "E"
          elsif @direction == "E" && left_right == "L"
@@ -34,14 +36,14 @@ class Rover
          elsif @direction = "W" && left_right == "L"
            @direction = "S"
          else @direction = "W" && left_right == "R"
-           @directiob = "N"
+           @direction = "N"
       end
     end
 
       def move
       if @direction == "N" then @y = y + 1
-        elsif @direction == "E" then @x = x + 1
-          elsif @direction == "S" then @y = y - 1
+      elsif @direction == "E" then @x = x + 1
+      elsif @direction == "S" then @y = y - 1
       elsif @direction == "W" then @x = x - 1
       else
         puts "Eh?"
@@ -55,7 +57,7 @@ class Rover
 
 end
 
-rover1 = Rover.new(1,2,'N')
+rover1 = Rover.new(1,2,"N")
 rover1.read_instruction("instructions")
 rover1.final_position
 
