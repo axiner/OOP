@@ -6,12 +6,23 @@ class Rover
       @@direction = direction
     end
 
+    def read_instruction(instructions)
+      puts "What's your instructions?"
+        instructions = gets
+          instructions.split(",")
+            if instructions.include?("L"||"R")
+                instructions.turn("left_right")
+                else
+                  instructions.move
+            end
+    end
+
       def turn(left_right)
         puts "Which direction is the rover moving?"
          left_right = gets
 
          if direction = "N" && left_right = "L"
-           "W"
+           "S"
          elsif direction = "N" && left_right = "R"
            "E"
          elsif direction = "E" && left_right = "L"
@@ -27,9 +38,9 @@ class Rover
          else direction = "W" && left_right = "R"
            "N"
            end
-
       end
-end
 
-rover1 = Rover.new(1,2,"N")
-rover1.turn("L")
+      def move
+
+      end 
+end
