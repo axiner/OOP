@@ -6,47 +6,78 @@ class Rover
       @direction = direction
     end
 
+
+    def plateau_size (length_by_x,length_by_y)
+      puts "What is the length of the plateau by x?"
+        length_by_x = gets.to_i
+          if @x <= length_by_x
+              puts "Cool."
+            else
+              puts "I am falling off the plateau!"
+            end
+
+      puts "What is the length of the plateau by x?"
+        length_by_y = gets.to_i
+          if @y <= length_by_y
+              puts "Cool."
+            else
+              puts "I am falling off the plateau!"
+            end
+    end
+
+
     def read_instruction(instructions)
       puts "What are your instructions?"
-        instructions = gets.split(//)
+        instructions = gets.split("")
         instructions.each do |motion|
             if motion == "L"
-              self.turn("left_right")
+              self.turn_left
             elsif motion == "R"
-                self.turn("left_right")
-                else
+                self.turn_right
+              elsif motion == "M"
                   self.move
+                else
+                  "Please modify your instructions."
               end
          end
     end
 
-      def turn(left_right)
-         if @direction == "N" && left_right == "L"
-           @direction = "W"
-         elsif @direction == "N" && left_right == "R"
-           @direction = "E"
-         elsif @direction == "E" && left_right == "L"
-           @direction = "N"
-         elsif @direction == "E" && left_right == "R"
-           @direction = "S"
-         elsif @direction == "S" && left_right== "L"
-           @direction = "E"
-         elsif @direction = "S" && left_right == "R"
-           @direction = "W"
-         elsif @direction = "W" && left_right == "L"
-           @direction = "S"
-         else @direction = "W" && left_right == "R"
-           @direction = "N"
+
+    def turn_left
+         if @direction == "N"
+              @direction = "W"
+            elsif @direction == "E"
+                @direction = "N"
+              elsif @direction == "S"
+                  @direction = "E"
+                elsif @direction == "W"
+                  @direction = "S"
+                  else
+                    puts "Eh?"
+                  end
       end
+
+    def turn_right
+         if @direction == "W"
+              @direction = "N"
+            elsif @direction == "N"
+              @direction = "E"
+              elsif @direction == "E"
+                @direction = "S"
+                elsif @direction == "S"
+                  @direction = "W"
+                  else
+                    puts "Eh?"
+                  end
     end
 
       def move
-      if @direction == "N" then @y = y + 1
-      elsif @direction == "E" then @x = x + 1
-      elsif @direction == "S" then @y = y - 1
-      elsif @direction == "W" then @x = x - 1
+      if @direction == "N" then @y += 1
+      elsif @direction == "E" then @x += 1
+      elsif @direction == "S" then @y -= 1
+      elsif @direction == "W" then @x -= 1
       else
-        puts "Eh?"
+        puts "Invalid command."
       end
       end
 
@@ -57,10 +88,12 @@ class Rover
 
 end
 
-rover1 = Rover.new(1,2,"N")
-rover1.read_instruction("instructions")
+rover1 = Rover.new(1,2,'N')
+rover1.read_instruction("rover1")
 rover1.final_position
+rover1.plateau_size("x","y")
 
 rover2 = Rover.new(3,3,"E")
-rover2.read_instruction("instructions")
+rover2.read_instruction("rover2")
 rover2.final_position
+rover2.plateau_size("x","y")
